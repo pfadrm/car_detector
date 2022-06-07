@@ -22,6 +22,4 @@ class Predict:
     @property
     def result(self):
         """Return result of prediction."""
-        return self.__prediction
-
-
+        return self.__prediction[0]
