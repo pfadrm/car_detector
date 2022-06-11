@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Api to car model detection."""
+
 from . import model
 
 class Predict:
