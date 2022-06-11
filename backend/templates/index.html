@@ -23,7 +23,8 @@
     {% if filename %}
         <div>
         <img src="{{ url_for('display_image', filename=filename) }}">
-        <h3>{{ prediction.result }}</h3>
+        <h3>Brand: {{ prediction.brand }}</h3>
+        <h3>Color: {{ prediction.color }}</h3>
         </div>
         
     {% endif %}

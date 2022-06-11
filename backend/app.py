@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 Web server and API
 """
@@ -9,7 +9,6 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 from detector import Predict
 from pathlib import Path
-import urllib.request as request
 import requests
 
 
