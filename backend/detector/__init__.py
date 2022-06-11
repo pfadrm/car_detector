@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 """Detector module."""
-from os import environ
 from fastai.vision.all import load_learner
+from dotenv import load_dotenv
+from os import environ
+load_dotenv('.env')
 modelpath = environ.get('MODEL')
-if modelpath is None:
-    raise AttributeError("Use os env MODEL for model path.")
+colorpath = environ.get('COLOR')
+if modelpath is None or colorpath is None:
+    raise AttributeError("Use os env MODEL and COLOR for models path.")
 model = load_learner(modelpath)
+color = load_learner(colorpath)
 from .detector import Predict
