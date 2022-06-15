@@ -4,9 +4,11 @@ API endpoints
 """
 import os
 from urllib.request import urlopen
+import uuid
 from flask import Flask, request
 from flask_restful import Resource, Api
 from werkzeug.utils import secure_filename
+from detector import Pred
 import requests
 import shutil
 import urllib
@@ -25,8 +27,6 @@ def allowed_file(filename):
 
 class PredictImage(Resource):
     #Upload image files to server
-    def get(self):
-        return {'Welcome': 'car_detector'}
 
     def post(self):
         file = request.files['file']
@@ -36,21 +36,13 @@ class PredictImage(Resource):
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
-            return {'File': 'uploaded success'}
+            pred = Pred(file_path)
+            result = pred.result
+            result['id'] = str(uuid.uuid4())
+            return result
         else:
             return {'Image types allowed':'png, jpg, jpeg, webp, jfif'}
 
-
-class DownloadImage(Resource):
-    #Download image via URL
-    def post(self, image_url, imagepath, imagename):
-        pass
-        
-
-class addID(Resource):
-    #add uuid4 to files
-    def get(self):
-        pass
 
 class Predict(Resource):
     #Give predictions from db by id
@@ -58,7 +50,7 @@ class Predict(Resource):
         pass
 
 api.add_resource(PredictImage, '/predict', endpoint='upload image file')
-api.add_resource(Predict, '/predictions/<int:id>', endpoint='predictions')
+api.add_resource(Predict, '/prediction/<int:id>', endpoint='predictions')
 
 
 if __name__ == "__main__":

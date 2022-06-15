@@ -18,27 +18,50 @@ class Predict:
 
         image: image to initialize with
         """
-        self.__image = image
-        self.__brand_prediction = self.__model.predict(image)
-        self.__color_prediction = self.__color.predict(image)
+        self.image = image
+        self.make_prediction(self.image)
+
+    @property
+    def prediction(self):
+        """Return result of prediction."""
+        return {'full': self.__full[0].split(), 'color': self.__color[0]}
+
+    def make_prediction(self, image):
+        self.__full = self.__model.predict(image)
+        self.__color = self.__color.predict(image)
 
     @property
     def result(self):
         """Return result of prediction."""
-        return {'brand': self.__brand_prediction[0],
-                'color': self.__color_prediction[0]}
+        return {'brand': self.brand, 'color': self.color,
+                'model': self.model, 'year': self.year}
 
     @property
     def brand(self):
         """Return Car brand."""
-        return self.__brand_prediction[0]
+        return self.prediction['full'][0]
 
     @property
     def color(self):
         """Return car Color."""
-        return self.__color_prediction[0]
+        return self.prediction['color']
+
+    @property
+    def model(self):
+
+        return ' '.join(self.prediction['full'][1:-1])
+
+    @property
+    def year(self):
+        return self.prediction['full'][-1]
+
 
     @property
     def image(self):
         """Return image of car."""
         return self.__image
+
+    @image.setter
+    def image(self, image):
+        self.__image = image
+

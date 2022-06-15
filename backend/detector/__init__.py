@@ -10,4 +10,4 @@ if modelpath is None or colorpath is None:
     raise AttributeError("Use os env MODEL and COLOR for models path.")
 model = load_learner(modelpath)
 color = load_learner(colorpath)
-from .detector import Predict
+from .detector import Predict as Pred
