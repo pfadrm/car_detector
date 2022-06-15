@@ -9,10 +9,18 @@ return (
     </h1>
     <ul>
 		<li>
-		<Link to="/">Home</Link>
+		<Link to="/">
+		<button type="button">
+          hichem
+     </button>
+		</Link>
 		</li>
 		<li>
-		<Link to="/about">About</Link>
+		<Link to="/about">
+		<button type="button">
+          About
+     </button>
+		</Link>
 		</li>
 	</ul>
     </div>
