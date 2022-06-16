@@ -7,6 +7,7 @@ from urllib.request import urlopen
 import uuid
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from detector import Pred
 import requests
@@ -20,6 +21,7 @@ app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp', 'jfif'])
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
