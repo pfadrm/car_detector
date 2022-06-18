@@ -44,11 +44,11 @@ class Predict(Resource):
             try:
                 self.result = Pred(self.file_path)
                 self.result = self.result.result 
-                result = Result(**self.result)
             except Exception as e:
                 print(e)
                 return {'ERROR':'AI MODEL ERROR'}, 500
             try:
+                result = Result(**self.result)
                 prediction = Prediction(_id=str(self.file_hash), img_path='/'+str(self.file_path))
                 prediction.result = result
                 prediction.save()

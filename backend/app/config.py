@@ -13,8 +13,10 @@ UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp', 'jfif'])
 DB_NAME = "car_predictor"
 DB_HOST = environ.get("DB_HOST")
-DB_PORT = int(environ.get("DB_PORT"))
+DB_PORT = int(str(environ.get("DB_PORT")))
+DB_PASS = environ.get("DB_PASS")
 MONGODB_SETTINGS = {
         "db": DB_NAME,
         "host": DB_HOST,
-        "port": DB_PORT}
+        "port": DB_PORT,
+        "password": DB_PASS}
