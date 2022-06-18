@@ -3,16 +3,18 @@
 API endpoints
 """
 import os
-from urllib.request import urlopen
+# from urllib.request import urlopen
 import uuid
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from detector import Pred
-import requests
-import shutil
-import urllib
+from db import *
+# import requests
+# import shutil
+# import urllib
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,6 +22,7 @@ UPLOAD_FOLDER = 'static/uploads/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+#app.config["MONGO_URI"] = URI
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp', 'jfif'])
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -40,10 +43,11 @@ class PredictImage(Resource):
             file.save(file_path)
             pred = Pred(file_path)
             result = pred.result
-            result['id'] = str(uuid.uuid4())
+            #result['id'] = str(uuid.uuid4())
             return result
-        else:
-            return {'Image types allowed':'png, jpg, jpeg, webp, jfif'}
+        return car_predictions.insert_one({"_id": str(uuid.uuid4()), "Filepath":"test", "Prediction":"test"})
+        #else:
+            #return {'Image types allowed':'png, jpg, jpeg, webp, jfif'}
 
 
 class Predict(Resource):
