@@ -1,12 +1,18 @@
 #!/usr/bin/python3
-"""
-Save to MongoDB database
-"""
+"""ORM to mongodb."""
+import mongoengine as me
 
-import pymongo
-from api import *
+class Result(me.EmbeddedDocument):
+    """Result of car prediction."""
 
-URI = 'mongodb+srv://MounaDB:mypassword1@cluster0.abbnw.mongodb.net/?retryWrites=true&w=majority'
-client = pymongo.MongoClient(URI)
-DB = client['pfa']
-car_predictions = DB.car_predictions
+    brand = me.StringField(required=True)
+    model = me.StringField(required=True)
+    color = me.StringField(required=True)
+    year = me.IntField(required=True)
+
+class Prediction(me.Document):
+    """Prediction doc."""
+
+    _id = me.StringField(primary_key=True)
+    img_path = me.StringField(required=True)
+    result = me.EmbeddedDocumentField(Result)
