@@ -14,6 +14,7 @@ COLOR='./detector/models/color.pkl'
 To setup mongodb run it and setup the environment variables in the `.env` in your backend directory:
 
 ```
+DB_NAME=car_predictor
 DB_HOST='127.0.0.1'
 DB_PORT=27017
 DB_PASS=''
