@@ -13,8 +13,11 @@ UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp', 'jfif'])
 DB_NAME = environ.get("DB_NAME")
 DB_HOST = environ.get("DB_HOST")
-DB_PORT = int(str(environ.get("DB_PORT")))
 DB_PASS = environ.get("DB_PASS")
+if environ.get("DB_PORT") == '' or environ.get("DB_PORT") is None:
+    DB_PORT = ''
+else:
+    DB_PORT = int(str(environ.get("DB_PORT")))
 MONGODB_SETTINGS = {
         "db": DB_NAME,
         "host": DB_HOST,
