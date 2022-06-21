@@ -30,11 +30,12 @@ class Predict(Resource):
         self.file = request.files['file']
         if self.file and self.allowed_file():
             try:
-                self.file_path = Path(secure_filename(str(self.file.filename)))
-                self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
-                x = str(self.file_path).split(".")
-                extension = x[1]
+                self.file.filename = secure_filename(str(self.file.filename))
+                extension = self.file.filename.split(".")[1:]
+                extension = '.'.join(extension)
                 self.file_hash = hashlib.md5(self.file.stream.read()).hexdigest()
+                self.file_path = Path(self.file_hash+extension)
+                self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
                 self.file.stream.seek(0)
                 check = self.check_exist()
                 if check:
@@ -51,7 +52,7 @@ class Predict(Resource):
                 return {'ERROR':'AI MODEL ERROR'}, 500
             try:
                 result = Result(**self.result)
-                prediction = Prediction(_id=str(self.file_hash), img_path='/static/uploads/'+str(self.file_hash)+'.'+extension)
+                prediction = Prediction(_id=str(self.file_hash), img_path=str(self.file_path))
                 prediction.result = result
                 prediction.save()
             except Exception as e:
