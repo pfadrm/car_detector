@@ -63,19 +63,25 @@ class Predict(Resource):
 class GetPrediction(Resource):
     """Get Prediction endpoint.""" 
 
-    def get(self, id):
+    def get(self):
         """Get request."""
         parser = reqparse.RequestParser()
         parser.add_argument('id', type=str, location='args')
-        if args:
-            args = parser.parse_args()
-            return args['id'], 200
+        args = parser.parse_args()
+        id = args.get('id')
+        if id:
+            obj = Prediction.objects(_id=id)
+            if obj is None:
+                return {'ERROR', 'NOT FOUND'}, 404
+            else:
+                obj = obj.first()
+                return obj.to_mongo(), 200
         else:
-            return {'ERROR':'RESULT NOT FOUND '}, 404
-            
+            return {'ERROR': 'NO ID'}, 400
+
 
 api.add_resource(Predict, '/predict', endpoint='Prediction')
-api.add_resource(GetPrediction, '/prediction/<string:id>', endpoint='Get Prediction')
+api.add_resource(GetPrediction, '/prediction', endpoint='Get Prediction')
 
 
 if __name__ == "__main__":
