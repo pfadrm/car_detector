@@ -1,7 +1,7 @@
 """API endpoints."""
 import hashlib
 from flask import request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 from detector import Pred
 from app import app, api
@@ -61,13 +61,21 @@ class Predict(Resource):
 
 
 class GetPrediction(Resource):
-    """Get prediction from id."""
+    """Get Prediction endpoint.""" 
 
-    def get(self):
-        pass
+    def get(self, id):
+        """Get request."""
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=str, location='args')
+        if args:
+            args = parser.parse_args()
+            return args['id'], 200
+        else:
+            return {'ERROR':'RESULT NOT FOUND '}, 404
+            
 
-api.add_resource(Predict, '/predict', endpoint='upload image file')
-api.add_resource(GetPrediction, '/prediction/<int:id>', endpoint='predictions')
+api.add_resource(Predict, '/predict', endpoint='Prediction')
+api.add_resource(GetPrediction, '/prediction/<string:id>', endpoint='Get Prediction')
 
 
 if __name__ == "__main__":
