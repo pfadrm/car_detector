@@ -1,7 +1,7 @@
 """API endpoints."""
 import hashlib
 from flask import request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 from detector import Pred
 from app import app, api
@@ -30,9 +30,12 @@ class Predict(Resource):
         self.file = request.files['file']
         if self.file and self.allowed_file():
             try:
-                self.file_path = Path(secure_filename(str(self.file.filename)))
-                self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
+                self.file.filename = secure_filename(str(self.file.filename))
+                extension = self.file.filename.split(".")[1:]
+                extension = '.'.join(extension)
                 self.file_hash = hashlib.md5(self.file.stream.read()).hexdigest()
+                self.file_path = Path(self.file_hash+extension)
+                self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
                 self.file.stream.seek(0)
                 check = self.check_exist()
                 if check:
@@ -49,7 +52,7 @@ class Predict(Resource):
                 return {'ERROR':'AI MODEL ERROR'}, 500
             try:
                 result = Result(**self.result)
-                prediction = Prediction(_id=str(self.file_hash), img_path='/'+str(self.file_path))
+                prediction = Prediction(_id=str(self.file_hash), img_path=str(self.file_path))
                 prediction.result = result
                 prediction.save()
             except Exception as e:
@@ -61,13 +64,27 @@ class Predict(Resource):
 
 
 class GetPrediction(Resource):
-    """Get prediction from id."""
+    """Get Prediction endpoint.""" 
 
     def get(self):
-        pass
+        """Get request."""
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=str, location='args')
+        args = parser.parse_args()
+        id = args.get('id')
+        if id:
+            obj = Prediction.objects(_id=id)
+            if obj is None:
+                return {'ERROR', 'NOT FOUND'}, 404
+            else:
+                obj = obj.first()
+                return obj.to_mongo(), 200
+        else:
+            return {'ERROR': 'NO ID'}, 400
 
-api.add_resource(Predict, '/predict', endpoint='upload image file')
-api.add_resource(GetPrediction, '/prediction/<int:id>', endpoint='predictions')
+
+api.add_resource(Predict, '/predict', endpoint='Prediction')
+api.add_resource(GetPrediction, '/prediction', endpoint='Get Prediction')
 
 
 if __name__ == "__main__":
