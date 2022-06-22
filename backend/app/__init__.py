@@ -11,5 +11,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = FILE_SIZE
 app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 app.config['MONGODB_SETTINGS'] = MONGODB_SETTINGS
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 db = MongoEngine(app)
