@@ -6,7 +6,7 @@ requests==2.27.1
 requests-file==1.5.1
 requests-oauthlib==1.3.1
 flask_restful
-python-dotenv
-flask_cors
 dnspython==2.2.1
 flask-mongoengine
+flask-cors
+gunicorn

@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  flask_app:
+    container_name: backend
+    restart: always
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./static:/app/static
+    environment:
+      MODEL: /app/detector/models/brand.pkl
+      COLOR: /app/detector/models/color.pkl
+      DB_HOST: mongodb
+      DB_PORT: 27017
+      DB_PASS: pass
+      DB_NAME: car_predictor
+      DB_USER: root
+    command: gunicorn -w 6 -b 0.0.0.0:8000 wsgi:app
+
+
+  mongodb:
+    container_name: mongodb
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    depends_on:
+      - flask_app
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./deployment
+    ports:
+      - "8080:80"
+    volumes:
+      - ./static:/static
+    depends_on:
+      - flask_app
+      - mongodb

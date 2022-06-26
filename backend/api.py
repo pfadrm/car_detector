@@ -13,7 +13,11 @@ class Predict(Resource):
 
     def check_exist(self):
         """Check if picture hash exists."""
-        check = Prediction.objects(_id=self.file_hash)
+        try:
+            check = Prediction.objects(_id=self.file_hash)
+        except Exception as e:
+            print(e)
+            return {'ERROR':'DB ERROR'}, 500
         if check is None:
             return False
         else:
@@ -34,7 +38,7 @@ class Predict(Resource):
                 extension = self.file.filename.split(".")[1:]
                 extension = '.'.join(extension)
                 self.file_hash = hashlib.md5(self.file.stream.read()).hexdigest()
-                self.file_path = Path(self.file_hash+extension)
+                self.file_path = Path(self.file_hash+'.'+extension)
                 self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
                 self.file.stream.seek(0)
                 check = self.check_exist()
@@ -52,7 +56,7 @@ class Predict(Resource):
                 return {'ERROR':'AI MODEL ERROR'}, 500
             try:
                 result = Result(**self.result)
-                prediction = Prediction(_id=str(self.file_hash), img_path=str(self.file_path))
+                prediction = Prediction(_id=str(self.file_hash), img_path='/'+str(self.file_path))
                 prediction.result = result
                 prediction.save()
             except Exception as e:
@@ -83,9 +87,5 @@ class GetPrediction(Resource):
             return {'ERROR': 'NO ID'}, 400
 
 
-api.add_resource(Predict, '/predict', endpoint='Prediction')
-api.add_resource(GetPrediction, '/prediction', endpoint='Get Prediction')
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+api.add_resource(Predict, '/api/predict', endpoint='Prediction')
+api.add_resource(GetPrediction, '/api/prediction', endpoint='Get Prediction')

@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """Default configuration settings."""
-from dotenv import load_dotenv
 from os import environ
-load_dotenv('.env')
 
 DEBUG = True
 TESTING = False
@@ -14,6 +12,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp', 'jfif'])
 DB_NAME = environ.get("DB_NAME")
 DB_HOST = environ.get("DB_HOST")
 DB_PASS = environ.get("DB_PASS")
+DB_USER = environ.get("DB_USER")
 if environ.get("DB_PORT") == '' or environ.get("DB_PORT") is None:
     DB_PORT = ''
 else:
@@ -21,5 +20,6 @@ else:
 MONGODB_SETTINGS = {
         "db": DB_NAME,
         "host": DB_HOST,
+        "username": DB_USER,
         "port": DB_PORT,
         "password": DB_PASS}

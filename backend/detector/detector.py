@@ -39,7 +39,7 @@ class Predict:
     @property
     def brand(self):
         """Return Car brand."""
-        return self.prediction['full'][0]
+        return self.prediction['full'][1].replace('_', ' ')
 
     @property
     def color(self):
@@ -48,12 +48,11 @@ class Predict:
 
     @property
     def model(self):
-
-        return ' '.join(self.prediction['full'][1:-1])
+        return ' '.join(self.prediction['full'][2:])
 
     @property
     def year(self):
-        return self.prediction['full'][-1]
+        return self.prediction['full'][0]
 
 
     @property
