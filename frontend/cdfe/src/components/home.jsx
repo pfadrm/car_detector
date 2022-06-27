@@ -24,7 +24,7 @@ class Home extends Component{
 		if (this.state.imageAction === true){
 	const Data = new FormData()
 	Data.append("file", this.state.pictureAsFile);
-	axios.post("http://127.0.0.1:5000/predict", Data)
+	axios.post("http://164.92.212.85/predict", Data)
 	.then((response) => {
 		console.log(response.data)
 		this.setState({

@@ -1,4 +1,4 @@
-"""API endpoints."""
+"""API endpoints."""API endpoints."""
 import hashlib
 from flask import request
 from flask_restful import Resource, reqparse
@@ -46,29 +46,29 @@ class Predict(Resource):
                     return check.to_mongo(), 200
                 self.file.save(str(self.file_path))
             except Exception as e:
-                print(e)
-                return {'ERROR': 'SAVING FILE ERROR'}
+                return {'Error': 'Saving File Error',
+                        'Description': str(e)}, 500
             try:
                 self.result = Pred(self.file_path)
-                self.result = self.result.result 
+                self.result = self.result.result
             except Exception as e:
-                print(e)
-                return {'ERROR':'AI MODEL ERROR'}, 500
+                return {'Error':'AI Model Error',
+                        'Description': str(e)}, 500
             try:
                 result = Result(**self.result)
                 prediction = Prediction(_id=str(self.file_hash), img_path='/'+str(self.file_path))
                 prediction.result = result
                 prediction.save()
             except Exception as e:
-                print(e)
-                return {'ERROR':'DB ERROR'}, 500
+                return {'Error':'DB Error',
+                        'Description': str(e)}, 500
             return prediction.to_mongo(), 201
         else:
             return {'Image types allowed':'png, jpg, jpeg, webp, jfif'}, 400
 
 
 class GetPrediction(Resource):
-    """Get Prediction endpoint.""" 
+    """Get Prediction endpoint."""
 
     def get(self):
         """Get request."""
@@ -77,14 +77,18 @@ class GetPrediction(Resource):
         args = parser.parse_args()
         id = args.get('id')
         if id:
-            obj = Prediction.objects(_id=id)
+            try:
+                obj = Prediction.objects(_id=id)
+            except Exception as e:
+                return {'Error':'DB Error',
+                        'Description': str(e)}, 500
             if obj is None:
-                return {'ERROR', 'NOT FOUND'}, 404
+                return {'Error', 'Not found'}, 404
             else:
                 obj = obj.first()
                 return obj.to_mongo(), 200
         else:
-            return {'ERROR': 'NO ID'}, 400
+            return {'Error': 'No id'}, 400
 
 
 api.add_resource(Predict, '/api/predict', endpoint='Prediction')
