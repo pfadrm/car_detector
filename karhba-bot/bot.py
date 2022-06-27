@@ -11,7 +11,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 def get_prediction(img):
-    url = 'http://164.92.212.85/api/predict'
+    url = 'http://backend/api/predict'
     image = {'file': img}
     resp=requests.post(url, files=image)
     return resp.json()

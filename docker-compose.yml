@@ -17,7 +17,6 @@ services:
       DB_PASS: pass
       DB_NAME: car_predictor
       DB_USER: root
-    command: gunicorn -w 2 -b 0.0.0.0:8000 wsgi:app
     depends_on:
       - mongodb
 
@@ -46,3 +45,10 @@ services:
     depends_on:
       - api
       - mongodb
+
+  bot:
+    container_name: bot
+    restart: always
+    build: ./karhba-bot
+    depends_on:
+      - api
