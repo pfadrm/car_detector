@@ -65,15 +65,14 @@ class Home extends Component{
 }
 render(){
 return (
-	<div>
-		<div className="bg-gradient-to-tr h-97 w-full relative">
-			<img src="https://wallpapershome.com/images/wallpapers/mercedes-benz-cls-2560x1440-2018-cars-red-5k-16619.jpg" alt="car img"
-				className="w-full h-full object-cover absolute mix-blend-soft-light"/>
-			<div class="absolute left-0 top-0 w-32">
-				<img src="https://cdn.discordapp.com/attachments/978934429143683085/990682811906277386/Logo_with_catch_phrase-removebg-preview.png" alt="logo"/>
+	<div
+	class="bg-scroll bg-contain overflow-auto bg-no-repeat min-h-screen"
+		Style="background-image: url('https://wallpapershome.com/images/wallpapers/mercedes-benz-cls-2560x1440-2018-cars-red-5k-16619.jpg')">
+			<div class="left-0 top-0 w-32">
+				<img src="https://cdn.discordapp.com/attachments/978934429143683085/991077226982277150/1.png" alt="logo"/>
 			</div>
 			<div><Link to="/about">
-		<div class="absolute top-0 right-0 h-32 w-31">
+		<div class="absolute top-0 right-0 h-32 w-40">
 			<a href="#_" class="relative inline-block text-lg group">
 			<span class="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
 			<span class="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -84,18 +83,17 @@ return (
 			</a>
 		</div> 
 </Link></div>
-			<div className="px-40 py-20">
-				<h1 className="text-blue-800 text-4xl font-bold">
+			<div className="py-40 px-10 h-2">
+				<h1 className="text-white text-2xl font-bold">
 				Car Detector with %93 Accuracy</h1>
-				<h2 className="text-white text-3xl font-light">
+				<h2 className="text-white text-1xl font-light">
 				<p>Don't Ask  Car Enthusiasts, Ask Us!</p>
 				<p>we have build an automative api with %93 accuracy</p>
 				<p>that will recognize the year, model and color</p>
 				<p>of most cars since 1928.</p></h2>
 			</div>
-		</div>
 	<br></br>
-	<div>
+	<div className="py-80">
 	<input type="file" class="text-sm text-grey-500
             file:mr-5 file:py-3 file:px-10
             file:rounded-full file:border-0
