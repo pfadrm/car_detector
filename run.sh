@@ -1,6 +1,7 @@
 #!/usr/bin/zsh
-docker-compose down
-mkdir -p build/static/uploads
-npm run-script --prefix ./frontend/cdfe build
-/bin/cp -rf ./frontend/cdfe/build/* ./build
-docker-compose up --build
+compose="/app/docker-compose.yml"
+docker-compose -f $compose  down
+mkdir -p /app/build/static/uploads
+npm run-script --prefix /app/frontend/cdfe build
+/bin/cp -rf /app/frontend/cdfe/build/* /app/build
+docker-compose -f $compose up --build -d

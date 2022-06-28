@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # bot.py
 import os
+import sys
 import requests
 import discord
 from dotenv import load_dotenv
@@ -11,7 +12,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 def get_prediction(img):
-    url = 'http://backend/api/predict'
+    url = 'http://164.92.212.85/api/predict'
     image = {'file': img}
     resp=requests.post(url, files=image)
     return resp.json()
@@ -27,7 +28,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content == '!predict':
+    if message.content.strip() == '!predict':
         if len(message.attachments) > 0:
             for attach in message.attachments:
                 url = attach.url
@@ -39,7 +40,7 @@ async def on_message(message):
                         prediction = get_prediction(f)
                     os.remove(url.split('/')[-1])
                 except Exception as e:
-                    print(e)
+                    print(e, file=sys.stderr)
                     await message.channel.send("There was an error with the bot")
                 else:
                     output = clean_output(prediction)
