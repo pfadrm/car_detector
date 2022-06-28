@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+  api:
+    container_name: backend
+    restart: always
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./build/static:/app/static
+    environment:
+      MODEL: /app/detector/models/brand.pkl
+      COLOR: /app/detector/models/color.pkl
+      DB_HOST: mongodb
+      DB_PORT: 27017
+      DB_PASS: pass
+      DB_NAME: car_predictor
+      DB_USER: root
+    depends_on:
+      - mongodb
+
+
+  mongodb:
+    container_name: mongodb
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./deployment
+    ports:
+      - "80:80"
+    volumes:
+      - ./build/static:/static
+      - ./build:/usr/share/nginx/html
+    depends_on:
+      - api
+      - mongodb
+
+  bot:
+    container_name: bot
+    restart: always
+    build: ./karhba-bot
+    depends_on:
+      - api

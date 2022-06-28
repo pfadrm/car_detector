@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """Detector module."""
 from fastai.vision.all import load_learner
-from dotenv import load_dotenv
 from os import environ
-load_dotenv('.env')
 modelpath = environ.get('MODEL')
 colorpath = environ.get('COLOR')
 if modelpath is None or colorpath is None:

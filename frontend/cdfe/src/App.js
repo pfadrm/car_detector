@@ -8,6 +8,7 @@ import Home from './components/home'
 import About from './components/about'
 
 function App() {
+	document.body.style.backgroundImage = `url(http://${window.location.hostname}/static/banner.jpg)`;
   return (
     <>
     <Router>
