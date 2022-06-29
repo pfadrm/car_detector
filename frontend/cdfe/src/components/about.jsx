@@ -7,7 +7,7 @@ class About extends Component {
 				<div class="nav-bar">
 					<div class='logo'>
 						<Link to="/">
-							<img src={`http://${window.location.hostname}/static/logo.png`} alt="logo" />
+							<img src={`https://${window.location.hostname}/static/logo.png`} alt="logo" />
 						</Link>
 					</div>
 					<div class='links'>
@@ -19,7 +19,7 @@ class About extends Component {
 				</div>
 				<div class='main'>
 					<div class='banner'>
-						<img src={`http://${window.location.hostname}/static/logo.png`} alt="logo" />
+						<img src={`https://${window.location.hostname}/static/logo.png`} alt="logo" />
 					</div>
 					<div class="desc-class">
 						<h2>Inspiration:</h2>

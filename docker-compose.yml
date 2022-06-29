@@ -39,12 +39,21 @@ services:
     build: ./deployment
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./build/static:/static
       - ./build:/usr/share/nginx/html
+      - ./deployment/certbot/www:/var/www/certbot
+      - ./deployment/certbot/conf:/etc/nginx/ssl
     depends_on:
       - api
       - mongodb
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./deployment/certbot/www/:/var/www/certbot/:rw
+      - ./deployment/certbot/conf/:/etc/letsencrypt/:rw
 
   bot:
     container_name: bot
