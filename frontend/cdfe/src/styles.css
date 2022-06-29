@@ -46,9 +46,7 @@ body {
 }
 
 .main {
-	margin-top: 5%;
-	margin-right: 5%;
-	margin-left: 5%;
+	margin: 5%;
 }
 
 .main .tag {
@@ -187,4 +185,15 @@ to {
 .detect-button button:hover {
 	background-color: rgba(255, 255, 255, 0.8);
 	color: black;
+}
+
+
+.banner {
+	margin: 5% 0% 5% 33%;
+}
+
+.banner img {
+	width: 50%;
+	height: 50%;
+
 }
