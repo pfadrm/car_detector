@@ -33,10 +33,14 @@ class Home extends Component {
 		this.setState({
 			picturePreview: URL.createObjectURL(e.target.files[0]),
 			pictureAsFile: e.target.files[0],
+			fileSize : e.target.files[0].size,
 			isImage: true,
 			isUrl: false,
 			isResponse: false,
 			isloading: false,
+			sizeError: false,
+			serveurEroor: false,
+			clientError: false,
 		})
 		let urlInput = document.getElementById('url');
 		urlInput.value = ''
@@ -65,11 +69,18 @@ class Home extends Component {
 		})
 
 		if (this.state.isImage === true) {
+			if (this.state.fileSize > 10000000) {
+				this.setState({
+					sizeError: true,
+					isloading: false,
+				})
+			}
 			const Data = new FormData()
 			Data.append("file", this.state.pictureAsFile);
 			axios.post(`${window.location.origin}/api/predict`, Data)
 				.then((response) => {
 					console.log(response.data)
+					console.log(response.status)
 					this.setState({
 						result: response.data,
 						isResponse: true,
@@ -81,11 +92,28 @@ class Home extends Component {
 						isUrl: false,
 						isloading: false
 					})
+					if (error.request.status === 400) {
+						this.setState({
+							clientError: true,
+						})
+					}
+					if (error.request.status === 500) {
+						this.setState({
+							serveurEroor: true,
+						})
+					}
+
 			});
 
 		}
 
 		else if (this.state.isUrl === true){
+			if (this.state.fileSize > 10000000) {
+				this.setState({
+					sizeError: true,
+					isloading: false,
+				})
+			}
 			const Data = new FormData()
 			Data.append("url", this.state.url);
 			axios.post(`${window.location.origin}/api/predict`, Data)
@@ -104,6 +132,16 @@ class Home extends Component {
 						isImage: false,
 						isloading: false
 					})
+					if (error.request.status === 400) {
+						this.setState({
+							clientError: true,
+						})
+					}
+					if (error.request.status === 500) {
+						this.setState({
+							serveurEroor: true,
+						})
+					}
 			});
 		}
 	};
@@ -119,6 +157,27 @@ class Home extends Component {
 					<p>Year: {data.result.year}</p>
 				</div>
 			);
+		}
+		else if (this.state.sizeError === true) {
+			return (
+				<div class="pred-result">
+					<h4>File size is too big</h4>
+				</div>
+			)
+		}
+		else if (this.state.clientError === true) {
+			return (
+				<div class="pred-result">
+					<h4>Image types allowed : png, jpg, jpeg, webp, jfif</h4>
+				</div>
+			)
+		}
+		else if (this.state.serveurEroor === true) {
+			return (
+				<div class="pred-result">
+					<h4>Opps! We have a problem in our serveur!!</h4>
+				</div>
+			)
 		}
 	}
 
