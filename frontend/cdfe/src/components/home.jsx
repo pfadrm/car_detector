@@ -236,7 +236,7 @@ class Home extends Component {
 						<p>You can use our api by choosing a file here and clicking detect or using our api routes!</p>
 						<h2>What are the API routes?</h2>
 						<h3>POST /api/predict</h3>
-						<p>Send an image with the key <b>file</b> on the body of a POST request and you will get prediction in this JSON format:</p>
+						<p>Send an image with the key <b>file</b> or the url with key <b>url</b> on the body of a POST request and you will get prediction in this JSON format:</p>
 						<p class="specs"><code>{`{
 "_id": "4d19b7a71f57627144fbb28575d4010c",
 "img_path": "/static/uploads/images_2.jpeg",
