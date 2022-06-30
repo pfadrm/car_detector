@@ -42,21 +42,19 @@ class Predict(Resource):
             return None
     def post(self):
         """Post request."""
-        parser = reqparse.RequestParser()
-        parser.add_argument('url', type=str)
-        args = parser.parse_args()
-        self.url = args.get('url')
+        self.url = request.form.get('url', type=str)
 
         if 'file' not in request.files and self.url is None:
             return {'Error':'No File or URL'}, 400
+
+        if 'file' in request.files and self.url is not None:
+            return {'Error':'Malformed Request'}, 400
 
         if 'file' in request.files:
             self.file = request.files['file']
 
         elif self.url is not None:
             self.file = self.downloadfile()
-        else:
-            return {'Error': 'Malformed request'}, 400
 
         if self.file and self.allowed_file():
             try:
@@ -98,10 +96,7 @@ class GetPrediction(Resource):
 
     def get(self):
         """Get request."""
-        parser = reqparse.RequestParser()
-        parser.add_argument('id', type=str, location='args')
-        args = parser.parse_args()
-        id = args.get('id')
+        id = request.args.get('id', type=str)
         if id:
             try:
                 obj = Prediction.objects(_id=id)
