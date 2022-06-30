@@ -15,7 +15,7 @@ class Home extends Component {
 			isUrl: false,
 			Url: null,
 			sizeError: false,
-			serveurEroor: false,
+			serverEroor: false,
 			clientError: false
 		}
 	}
@@ -99,7 +99,7 @@ class Home extends Component {
 					}
 					if (error.request.status === 500) {
 						this.setState({
-							serveurError: true,
+							serverError: true,
 						})
 					}
 
@@ -139,7 +139,7 @@ class Home extends Component {
 					}
 					if (error.request.status === 500) {
 						this.setState({
-							serveurError: true,
+							serverError: true,
 						})
 					}
 			});
@@ -172,10 +172,10 @@ class Home extends Component {
 				</div>
 			)
 		}
-		else if (this.state.serveurEroor === true) {
+		else if (this.state.serverEroor === true) {
 			return (
 				<div class="pred-result">
-					<h4>Opps! We have a problem in our serveur!!</h4>
+					<h4>Opps! We have a problem in our server...</h4>
 				</div>
 			)
 		}
