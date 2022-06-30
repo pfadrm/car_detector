@@ -33,7 +33,11 @@ class Predict(Resource):
     def downloadfile(self):
         """Get picture from url."""
         ext = self.url.split('.')[-1]
-        response = requests.get(self.url)
+        ext = ext.split('?')[0]
+        try:
+            response = requests.get(str(self.url))
+        except Exception:
+            return None
         if response is not None:
             tmp_stream = io.BytesIO(response.content)
             file = FileStorage(stream=tmp_stream, filename=f"upload.{ext}")
@@ -55,6 +59,8 @@ class Predict(Resource):
 
         elif self.url is not None:
             self.file = self.downloadfile()
+            if self.file is None:
+                return {'Error':'Problem with downloading your file (file too big)'}, 400
 
         if self.file and self.allowed_file():
             try:

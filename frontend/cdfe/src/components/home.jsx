@@ -22,7 +22,8 @@ class Home extends Component {
 			isUrl: true,
 			isResponse: false,
 			isImage: false,
-			url: e.target.value 
+			url: e.target.value,
+			isloading: false,
 		})
 		let fileInput = document.getElementById('files');
 		fileInput.value = null
@@ -34,7 +35,8 @@ class Home extends Component {
 			pictureAsFile: e.target.files[0],
 			isImage: true,
 			isUrl: false,
-			isResponse: false
+			isResponse: false,
+			isloading: false,
 		})
 		let urlInput = document.getElementById('url');
 		urlInput.value = ''
