@@ -57,8 +57,8 @@ class About extends Component {
 						</svg></a>
 						<h2>Main Features of Car Detector:</h2>
 						<p>1. Upload images to API Detect car and return its model, brand, year and color</p>
-						<p>3. GET saved  predictions from API via database</p>
-						<p>4. Discord Bot to predict</p>
+						<p>2. GET saved  predictions from API via database</p>
+						<p>3. Discord Bot to predict</p>
 					</div>
 				</div>
 			</div>
