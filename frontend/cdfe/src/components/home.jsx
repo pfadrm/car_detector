@@ -13,7 +13,10 @@ class Home extends Component {
 			isImage: false,
 			isloading: false,
 			isUrl: false,
-			Url: null
+			Url: null,
+			sizeError: false,
+			serveurEroor: false,
+			clientError: false
 		}
 	}
 
@@ -38,9 +41,6 @@ class Home extends Component {
 			isUrl: false,
 			isResponse: false,
 			isloading: false,
-			sizeError: false,
-			serveurEroor: false,
-			clientError: false,
 		})
 		let urlInput = document.getElementById('url');
 		urlInput.value = ''
