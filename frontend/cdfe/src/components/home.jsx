@@ -14,6 +14,7 @@ class Home extends Component {
 			isloading: false,
 			isUrl: false,
 			Url: null,
+			Error: false,
 			sizeError: false,
 			serverEroor: false,
 			clientError: false
@@ -28,6 +29,7 @@ class Home extends Component {
 			url: e.target.value,
 			isloading: false,
 			sizeError: false,
+			Error: false,
 			serverEroor: false,
 			clientError: false
 		})
@@ -44,6 +46,7 @@ class Home extends Component {
 			isUrl: false,
 			isResponse: false,
 			isloading: false,
+			Error: false,
 			sizeError: false,
 			serverEroor: false,
 			clientError: false
@@ -95,8 +98,10 @@ class Home extends Component {
 				}).catch((error) => {
 					this.setState({
 						isResponse: false,
+						isloading: false,
 						isUrl: false,
-						isloading: false
+						isImage: false,
+						Error: true,
 					})
 					if (error.request.status === 400) {
 						this.setState({
@@ -136,7 +141,9 @@ class Home extends Component {
 					this.setState({
 						isResponse: false,
 						isImage: false,
-						isloading: false
+						isloading: false,
+						Error: true,
+						isUrl: false
 					})
 					if (error.request.status === 400) {
 						this.setState({
@@ -189,7 +196,7 @@ class Home extends Component {
 
 
 	checkImage = () => {
-		if (this.state.isResponse === false && this.state.isloading === false) {
+		if (this.state.isResponse === false && this.state.isloading === false && this.state.Error === false) {
 			return (
 				<div class="detect-button">
 					<button type="submit">
