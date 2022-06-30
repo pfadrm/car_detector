@@ -99,7 +99,7 @@ class Home extends Component {
 					}
 					if (error.request.status === 500) {
 						this.setState({
-							serveurEroor: true,
+							serveurError: true,
 						})
 					}
 
@@ -139,7 +139,7 @@ class Home extends Component {
 					}
 					if (error.request.status === 500) {
 						this.setState({
-							serveurEroor: true,
+							serveurError: true,
 						})
 					}
 			});
