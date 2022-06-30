@@ -1,10 +1,13 @@
 """API endpoints."""
 import hashlib
 from flask import request
+import io
 from flask_restful import Resource, reqparse
 from werkzeug.utils import secure_filename
 from detector import Pred
 from app import app, api
+from werkzeug.datastructures import FileStorage
+import requests
 from db import Prediction, Result
 from pathlib import Path
 
@@ -27,11 +30,34 @@ class Predict(Resource):
         """Check if file extension is allowed."""
         return '.' in self.file.filename and self.file.filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+    def downloadfile(self):
+        """Get picture from url."""
+        ext = self.url.split('.')[-1]
+        response = requests.get(self.url)
+        if response is not None:
+            tmp_stream = io.BytesIO(response.content)
+            file = FileStorage(stream=tmp_stream, filename=f"upload.{ext}")
+            return file
+        else:
+            return None
     def post(self):
         """Post request."""
-        if 'file' not in request.files:
-            return {'ERROR':'NO File'}, 400
-        self.file = request.files['file']
+        parser = reqparse.RequestParser()
+        parser.add_argument('url', type=str)
+        args = parser.parse_args()
+        self.url = args.get('url')
+
+        if 'file' not in request.files and self.url is None:
+            return {'Error':'No File or URL'}, 400
+
+        if 'file' in request.files:
+            self.file = request.files['file']
+
+        elif self.url is not None:
+            self.file = self.downloadfile()
+        else:
+            return {'Error': 'Malformed request'}, 400
+
         if self.file and self.allowed_file():
             try:
                 self.file.filename = secure_filename(str(self.file.filename))

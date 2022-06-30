@@ -11,11 +11,25 @@ class Home extends Component {
 			result: null,
 			isResponse: false,
 			imageAction: false,
-			isloading: false
+			isloading: false,
+			isUrl: false,
+			Url: null
+		}
+	}
+
+	fetchfromurl = (e) => {
+		if (e.key === 'Enter')
+		{
+					this.setState({
+					isUrl: true,
+					Url: e.target.value 
+			})
+					e.target.value = "";
 		}
 	}
 
 	uploadPicture = (e) => {
+		console.log(e.target.files[0])
 		this.setState({
 			picturePreview: URL.createObjectURL(e.target.files[0]),
 			pictureAsFile: e.target.files[0],
@@ -39,41 +53,68 @@ class Home extends Component {
 		}
 	}
 
+	checkImage = () => {
+		if ((this.state.imageAction === true || this.state.isUrl === true) && this.state.isloading === false) {
+			return (
+			<div class="pred-result">
+					<div class="detect-button">
+						<button onClick={this.setImageAction}>
+							Detect
+						</button>
+					</div>
+				</div>
+			)
+		}
+	}
+
 	setImageAction = () => {
+		this.setState({
+			isloading: true
+		})
+
 		if (this.state.imageAction === true) {
-			this.setState({
-				isloading: true
-			})
 			const Data = new FormData()
 			Data.append("file", this.state.pictureAsFile);
-			axios.post(`https://${window.location.hostname}/api/predict`, Data)
+			axios.post(`${window.location.origin}/api/predict`, Data)
 				.then((response) => {
 					console.log(response.data)
 					this.setState({
 						result: response.data,
 						isResponse: true,
-						imageAction: false,
 						isloading: false
 					})
 				}).catch((error) => {
 					this.setState({
+						isResponse: false,
+						isUrl: false,
 						isloading: false
 					})
 			});
+
+		}
+
+		else if (this.state.isUrl === true){
+			axios.post(`${window.location.origin}/api/predict`, {url: this.state.Url})
+				.then((response) => {
+					console.log(response.data)
+					this.setState({
+						result: response.data,
+						picturePreview: response.data.img_path,
+						isResponse: true,
+						isUrl: false,
+						isloading: false
+					})
+				}).catch((error) => {
+					this.setState({
+						isResponse: false,
+						imageAction: false,
+						isloading: false
+					})
+			});
+
+
 		}
 	};
-
-	checkImage = () => {
-		if (this.state.imageAction === true && this.state.isloading === false) {
-			return (
-				<div class="detect-button">
-					<button onClick={this.setImageAction}>
-						Detect
-					</button>
-				</div>
-			)
-		}
-	}
 
 	checkResponse = (data) => {
 		if (this.state.isResponse === true) {
@@ -95,12 +136,12 @@ class Home extends Component {
 				<div class="nav-bar">
 					<div class='logo'>
 						<Link to="/">
-							<img src={`https://${window.location.hostname}/static/logo.png`} alt="logo"/>
+							<img src={`${window.location.origin}/static/logo.png`} alt="logo"/>
 						</Link>
 					</div>
 					<div class='links'>
 						<Link to="/about">
-							<button>
+						<button>
 								About
 							</button>
 						</Link></div>
@@ -112,9 +153,11 @@ class Home extends Component {
 					</div>
 					<div class="demo-class">
 						<div class="upload-side">
-							<input id='files' type="file" name="image" onChange={this.uploadPicture} />
-							{this.checkImage()}
+							<h2>Upload an image or copy the url</h2>
+							<input class="file-input" id='files' type="file" name="image" onChange={this.uploadPicture} />
+							<input class="url-input" type='text' name="url-image" placeholder="URL of image" onKeyPress={this.fetchfromurl}/>
 						</div>
+						{this.checkImage()}
 						{this.LoadingSpinner()}
 						{this.checkResponse(this.state.result)}
 					</div>

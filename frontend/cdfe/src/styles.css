@@ -48,7 +48,7 @@ body {
 	margin: 5%;
 }
 
-.main .tag {
+.main .tag, .upload-side h2 {
 	text-transform: uppercase;
 	background-image: linear-gradient(
 		-225deg,
@@ -93,8 +93,11 @@ to {
 	margin-top: 5%;
 	background-color: rgba(12, 11, 11, 0.7);
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-direction: column;
+	/* flex-wrap: wrap; */
+	/* justify-content: space-between; */
+  align-items: center;
+  justify-content: center;
 	color: white;
 	padding: 1% 1% 1% 1%;
 }
@@ -137,36 +140,54 @@ to {
 }
 
 .upload-side {
-	/* margin: auto auto auto auto; */
-	padding: 10px;
-	/* border: 1px solid #761F17; */
+	/* flex-grow: 0.1; */
+	width: 40%;
+
+  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
-.upload-side input {
+.file-input {
 	color: white;
 	background-color: rgba(0, 0, 0, 0);
 	text-align: center;
-	padding: 14px 16px;
 	font-size: 17px;
+	margin: 3% 0% 3% 3%;
 	border-radius: 10px;
 	padding: auto 50% auto 50%;
 
 }
 
-.upload-side input::file-selector-button {
+.file-input::file-selector-button {
 	border: 0px;
-	padding: .2em .4em;
+	/* padding: .2em .4em; */
 	border-radius: .2em;
 	color: white;
+	width: 50%;
+	height: 100%;
 	background-color: #000;
 	transition: 1s;
 }
 
-.upload-side input::file-selector-button:hover {
+.file-input::file-selector-button:hover {
 	color: black;
 	background-color: #761F17;
 }
 
+.upload-side h2 {
+	margin: 3%;
+}
+
+.url-input {
+	color: white;
+	background-color: rgba(0, 0, 0, 0);
+	text-align: center;
+	font-size: 20px;
+	border-radius: 5px;
+	margin: 3% 0% 3% 3%;
+}
 
 .detect-button button {
 	border: 0px;
@@ -174,7 +195,6 @@ to {
 	font-weight: bold;
 	background-color: rgba(0, 0, 0, 0.5);
 	padding: 20px 50px;
-	margin: 15px auto auto 15px;
 	border-radius: .2em;
 	font-size: large;
 	color: white;
@@ -211,7 +231,7 @@ to {
   width: 100px;
   height: 100px;
   border: 10px solid black;
-  border-top: 10px solid #65000C;
+  border-top: 10px solid #FBFAF5;
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
