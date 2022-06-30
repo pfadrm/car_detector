@@ -18,8 +18,7 @@ class Predict(Resource):
         """Check if picture hash exists."""
         try:
             check = Prediction.objects(_id=self.file_hash)
-        except Exception as e:
-            print(e)
+        except Exception:
             return {'ERROR':'DB ERROR'}, 500
         if check is None:
             return False
@@ -32,12 +31,16 @@ class Predict(Resource):
 
     def downloadfile(self):
         """Get picture from url."""
-        ext = self.url.split('.')[-1]
-        ext = ext.split('?')[0]
         try:
             response = requests.get(str(self.url))
         except Exception:
             return None
+        self.filetype = response.headers.get('content-type')
+        if self.filetype is None:
+            ext = self.url.split('.')[-1]
+            ext = ext.split('?')[0]
+        else:
+            ext = self.filetype.split('/')[-1]
         if response is not None:
             tmp_stream = io.BytesIO(response.content)
             file = FileStorage(stream=tmp_stream, filename=f"upload.{ext}")
