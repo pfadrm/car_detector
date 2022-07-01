@@ -11,7 +11,7 @@ COLOR='./detector/models/color.pkl'
 
 ## Mongodb setup
 
-To setup mongodb run it and setup the environment variables in the `.env` in your backend directory:
+To setup mongodb run it and setup the environment variables in the `.env` in your backend directory and run ./actenv.sh:
 
 ```
 DB_NAME=car_predictor
