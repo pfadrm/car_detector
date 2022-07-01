@@ -119,12 +119,6 @@ class Home extends Component {
 		}
 
 		else if (this.state.isUrl === true){
-			if (this.state.fileSize > 10000000) {
-				this.setState({
-					sizeError: true,
-					isloading: false,
-				})
-			}
 			const Data = new FormData()
 			Data.append("url", this.state.url);
 			axios.post(`${window.location.origin}/api/predict`, Data)
