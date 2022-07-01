@@ -80,8 +80,11 @@ class Home extends Component {
 		if (this.state.isImage === true) {
 			if (this.state.fileSize > 10000000) {
 				this.setState({
-					sizeError: true,
-					isloading: false,
+						isResponse: false,
+						isloading: false,
+						isUrl: false,
+						isImage: false,
+						Error: true,
 				})
 			}
 			const Data = new FormData()
