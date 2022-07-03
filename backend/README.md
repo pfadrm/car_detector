@@ -2,7 +2,7 @@
 
 ## Getting the AI models
 
-To setup the api you need to download the models from [here](https://drive.google.com/drive/folders/1NJkb8YEb9degmIYAnoA9bfBKA--SC8qi?usp=sharing) and put them both in the `detector/models` directory and adding these environment variables to `.env` in your backend directory:
+To setup the api you need to download the models (This is a sample model with cars only from 2012) from [here](https://drive.google.com/drive/folders/1NJkb8YEb9degmIYAnoA9bfBKA--SC8qi?usp=sharing) and put them both in the `detector/models` directory and adding these environment variables to `.env` in your backend directory:
 
 ```
 MODEL='./detector/models/brand.pkl'
@@ -19,3 +19,5 @@ DB_HOST='127.0.0.1'
 DB_PORT=27017
 DB_PASS=''
 ```
+
+And Then run `actenv.sh` to activate the .env file.
