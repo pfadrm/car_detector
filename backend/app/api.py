@@ -2,28 +2,17 @@
 import hashlib
 from flask import request
 import io
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from werkzeug.utils import secure_filename
 from detector import Pred
-from app import app, api
+from .config import app
 from werkzeug.datastructures import FileStorage
 import requests
-from db import Prediction, Result
+from .db import Prediction, Result
 from pathlib import Path
 
 class Predict(Resource):
     """Prediction endpoint."""
-
-    def check_exist(self):
-        """Check if picture hash exists."""
-        try:
-            check = Prediction.objects(_id=self.file_hash)
-        except Exception:
-            return {'ERROR':'DB ERROR'}, 500
-        if check is None:
-            return False
-        else:
-            return check.first()
 
     def allowed_file(self):
         """Check if file extension is allowed."""
@@ -37,16 +26,17 @@ class Predict(Resource):
             return None
         self.filetype = response.headers.get('content-type')
         if self.filetype is None:
-            ext = self.url.split('.')[-1]
+            ext = str(self.url).split('.')[-1]
             ext = ext.split('?')[0]
         else:
             ext = self.filetype.split('/')[-1]
         if response is not None:
-            tmp_stream = io.BytesIO(response.content)
-            file = FileStorage(stream=tmp_stream, filename=f"upload.{ext}")
+            image_stream = io.BytesIO(response.content)
+            file = FileStorage(stream=image_stream, filename=f"upload.{ext}")
             return file
         else:
             return None
+
     def post(self):
         """Post request."""
         self.url = request.form.get('url', type=str)
@@ -63,7 +53,7 @@ class Predict(Resource):
         elif self.url is not None:
             self.file = self.downloadfile()
             if self.file is None:
-                return {'Error':'Problem with downloading your file (file too big)'}, 400
+                return {'Error':'Problem with downloading your file'}, 400
 
         if self.file and self.allowed_file():
             try:
@@ -74,10 +64,8 @@ class Predict(Resource):
                 self.file_path = Path(self.file_hash+'.'+extension)
                 self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
                 self.file.stream.seek(0)
-                check = self.check_exist()
-                if check:
-                    return check.to_mongo(), 200
-                self.file.save(str(self.file_path))
+                if not self.file_path.is_file():
+                    self.file.save(str(self.file_path))
             except Exception as e:
                 return {'Error': 'Saving File Error',
                         'Description': str(e)}, 500
@@ -119,7 +107,3 @@ class GetPrediction(Resource):
                 return obj.to_mongo(), 200
         else:
             return {'Error': 'No id'}, 400
-
-
-api.add_resource(Predict, '/api/predict', endpoint='Prediction')
-api.add_resource(GetPrediction, '/api/prediction', endpoint='Get Prediction')

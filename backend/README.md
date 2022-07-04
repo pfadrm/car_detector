@@ -20,4 +20,4 @@ DB_PORT=27017
 DB_PASS=''
 ```
 
-And Then run `actenv.sh` to activate the .env file.
+And Then run `source actenv` to activate the .env file.
