@@ -16,6 +16,7 @@ Welcome to Car Detector our End of Foundation Year Portfolio Project for Holbert
 - [Deployed Site](#deployed-site)
 - [Blogs](#blogs)
 - [Presentation](#presentation)
+- [Architecture](#architecture)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
 - [Screenshots](#screenshots)
@@ -40,7 +41,7 @@ This project started as an idea between Dhia and Rayen when they thought about t
  
 <b>Car Detector</b> is an AI API with 93% accuracy on brands. It will recognize the year, model and color of most cars since 1928. You can use our api by choosing a file and clicking detect or using our api routes!
 
-You can upload a picture of a car(from file or URL), predict its model or brand and display information about it(brand, model, year and color). The team implemented this API with a precise approach that focuses on asynchronous programming and achieving scalability of the project and separating the service into distinct detached sections, so each section addresses a separate concern. With an Agile approach to Project Management that delivers work in small, but consumable, increments.
+You can upload a picture of a car (from file or URL), predict its model or brand and display information about it (brand, model, year and color). The team implemented this API with a precise approach that focuses on asynchronous programming and achieving scalability of the project and separating the service into distinct detached sections, so each section addresses a separate concern. With an Agile approach to Project Management that delivers work in small, but consumable, increments.
  
  
 Here is our priority objectives:
@@ -70,6 +71,9 @@ This project will be of great help to users who are looking to identify the bran
  
 ##  Presentation 
 [Demo Day Presentation](https://docs.google.com/presentation/d/10dEp7BPVkv_gFFCBBhhpVIYzz9P5TSZ05xHUIwR1AKM/edit#slide=id.gf45378fd24_0_9)
+
+##  Architecture
+ ![Architecture](docs/architecture.jfif)
  
 ## Installation
 Please clone repo 
