@@ -28,9 +28,11 @@ class Predict(Resource):
         if self.filetype is None:
             ext = str(self.url).split('.')[-1]
             ext = ext.split('?')[0]
+        # we get the filetype from http header if it exists
         else:
             ext = self.filetype.split('/')[-1]
         if response is not None:
+            # turn the image into filestorage object to have the same file handling as the fil upload
             image_stream = io.BytesIO(response.content)
             file = FileStorage(stream=image_stream, filename=f"upload.{ext}")
             return file
@@ -60,6 +62,7 @@ class Predict(Resource):
                 self.file.filename = secure_filename(str(self.file.filename))
                 extension = self.file.filename.split(".")[1:]
                 extension = '.'.join(extension)
+                # getting the hash and saving the file
                 self.file_hash = hashlib.md5(self.file.stream.read()).hexdigest()
                 self.file_path = Path(self.file_hash+'.'+extension)
                 self.file_path = app.config['UPLOAD_FOLDER'] / self.file_path
@@ -70,6 +73,7 @@ class Predict(Resource):
                 return {'Error': 'Saving File Error',
                         'Description': str(e)}, 500
             try:
+                # getting the prediciton results
                 self.result = Pred(self.file_path)
                 self.result = self.result.result
             except Exception as e:
@@ -79,10 +83,12 @@ class Predict(Resource):
                 result = Result(**self.result)
                 prediction = Prediction(_id=str(self.file_hash), img_path='/'+str(self.file_path))
                 prediction.result = result
+                # saving the prediction results
                 prediction.save()
             except Exception as e:
                 return {'Error':'DB Error',
                         'Description': str(e)}, 500
+            # to_mongo will ouput the dict representation of the object that was saved into db
             return prediction.to_mongo(), 201
         else:
             return {'Image types allowed':'png, jpg, jpeg, webp, jfif'}, 400
