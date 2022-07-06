@@ -1,31 +1,77 @@
 # Car Detector AI API 🚗🔍
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+ 
+ 
 ![Car Detector](docs/TEST.gif)
-
+ 
 ## Introduction
-
-Welcome to Car Detecor our End of Foundation Year Portfolio Project for Holberton School Tunis. It is a car model classification API using Neural Nets.
-
-
+ 
+Welcome to Car Detector our End of Foundation Year Portfolio Project for Holberton School Tunis. It is a web application and a car model classification API using Neural Nets.
+ 
 ![Logo School](docs/holberton.png)
-
-###  Deployed site
-
-[Click here to visit our Deployed Website](https://car-detect.systems/)
-
-###  Blogs articles
-
-[Click here to visit our Blogs](https://car-detect.systems/ insert links here )
-
-###  Presentation
-
-[Click here to visit our Presentation](https://docs.google.com/presentation/d/10dEp7BPVkv_gFFCBBhhpVIYzz9P5TSZ05xHUIwR1AKM/edit#slide=id.gf45378fd24_0_9)
-
-
-### Authors LinkedIn ✨
+ 
+ 
+## Table of Contents
+ 
+- [The Story](#the-story)
+- [Deployed Site](#deployed-site)
+- [Blogs](#blogs)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Screenshots](#screenshots)
+- [Features](#features)
+    - [Github OAuth](#github-oauth)
+    - [Job Search](#job-search)
+- [Built With](#built-with)
+- [API](#api)
+- [Future](#future)
+- [Authors](#authors)
+    - [Dhia Ben Dahmani](#dhia-bendahmani)
+    - [Rayen Hedri](#rayen-hedri)
+    - [Montassar Barbouchi](#montassar-barbouchi)
+    - [Mouna Ben Ali](#mouna-benali)
+- [Acknowledgments](#acknowledgements)
+ 
+ 
+## The Story
+ 
+This project started as an idea between Dhia and Rayen when they thought about their childhood and how they used to try to guess the brands of the passing cars in the streets but could not be sure about it. That is how they thought about bringing Car Detector to life.
+ 
+<b>Car Detector</b> is an AI API that would allow the user to upload a picture of a car(from file or URL), predict its model or brand  and display information about it(brand, model, year and color). The team implemented this API with a precise approach that focuses on asynchronous programming and achieving scalability of the project and separating the service into distinct detached sections, so each section addresses a separate concern. With an Agile approach to Project Management that delivers work in small, but consumable, increments.
+ 
+ 
+Here is our priority objectives:
+- [Having a simple cli app prototype working on a sample of data(Beta)] (#acknowledgements)
+2 - Fetching the new data and cleaning it and retraining the model
+3 - Creating the AI library with a simple class that returns car predictions when initialized with a picture
+4 - Creating a RESTful API  with the library
+5 - ORM with database to save the predictions
+6 - Creating a creative and user-friendly UI with the front-end
+7 - Cleaning the codebase on Github
+ 
+This project will be of great help to users who are looking to identify the brand or model of a particular car, however, it can also be deployed as a component of a surveillance system or a study to identify which cars are more popular. The API can be of service to car enthusiasts, car insurances, car fleet management companies like car dealers or car rentals.
+ 
+ 
+ 
+## Deployed site
+ 
+[Please visit our Deployed Website](https://car-detect.systems/)
+ 
+####  Blogs 
+ - [Dhia Ben Dahmani](https://medium.com/@dhiadah/car-detector-a-month-long-journey-ea13d8a8cc36)
+ - [Rayen Hedri](#rayen-hedri)
+ - [Montassar Barbouchi](#montassar-barbouchi)
+ - [Mouna Ben Ali](#mouna-benali)
+ 
+[Please visit each team member blog post about the project](https://car-detect.systems/ insert links here )
+ 
+####  Presentation
+ 
+[Please visit our Presentation for Demo Day](https://docs.google.com/presentation/d/10dEp7BPVkv_gFFCBBhhpVIYzz9P5TSZ05xHUIwR1AKM/edit#slide=id.gf45378fd24_0_9)
+ 
+ 
+#### Authors (LinkedIn & Github) :black_nib:
 Thanks goes to these wonderful people
-
+ 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -67,23 +113,25 @@ Thanks goes to these wonderful people
     </td>
   </tr>
 </table>
-
+ 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
-
+ 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-
+ 
 ## Installation
 ## Usage
 ## Contributing
 ## Related projects
-
-
-
-
-
-
-
-
+### Acknowledgements
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
