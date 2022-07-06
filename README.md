@@ -64,9 +64,9 @@ This project will be of great help to users who are looking to identify the bran
  
 ##  Blogs 
  - [Dhia Ben Dahmani](https://medium.com/@dhiadah/car-detector-a-month-long-journey-ea13d8a8cc36)
- - [Rayen Hedri](#rayen-hedri)
+ - [Rayen Hedri](https://medium.com/@hedrirayen69/portfolio-project-car-detector-155bf531d6)
  - [Montassar Barbouchi](#montassar-barbouchi)
- - [Mouna Ben Ali](#mouna-benali)
+ - [Mouna Ben Ali](https://medium.com/@3801/introducing-car-detector-ai-api-fd50c62e5be7)
  
  
 ##  Presentation 
