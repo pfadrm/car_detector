@@ -1,14 +1,14 @@
 # Car Detector AI API 🚗🔍
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Car Detector](TEST.gif)
+![Car Detector](docs/TEST.gif)
 
 ## Introduction
 
 Welcome to Car Detecor our End of Foundation Year Portfolio Project for Holberton School Tunis. It is a car model classification API using Neural Nets.
 
 
-![Logo School](holberton.png)
+![Logo School](docs/holberton.png)
 
 ###  Deployed site
 
