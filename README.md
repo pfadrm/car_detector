@@ -17,6 +17,7 @@ Welcome to Car Detector our End of Foundation Year Portfolio Project for Holbert
 - [Blogs](#blogs)
 - [Presentation](#presentation)
 - [Architecture](#architecture)
+- [Flowchart](#flowchart)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
 - [Screenshots](#screenshots)
@@ -74,7 +75,11 @@ This project will be of great help to users who are looking to identify the bran
 
 ##  Architecture
  ![Architecture](docs/architecture.jfif)
- 
+
+##  Flowchart
+ ![Flowchart](docs/flowchart.png)
+
+
 ## Installation
 Please clone repo 
 ```
@@ -94,28 +99,36 @@ Type /predict and attach any number of car images to predict
 
 - Choose an image file and upload it
 
+
 ![Landing Page](docs/1.png)
 
 - Click Detect
 
+
 ![Landing Page](docs/2.png)
 
 - Detecting
+
+
 ![Landing Page](docs/3.png)
 
 - Check Prediction
+
 
 ![Landing Page](docs/4.png)
 
 - Try it with an image URL
 
+
 ![Landing Page](docs/5.png)
 
 - Check Prediction
 
+
 ![Landing Page](docs/6.png)
 
 - Try our discord Bot
+
 
 ![Landing Page](docs/7.png)
 
