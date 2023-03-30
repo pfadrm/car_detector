@@ -10,3 +10,4 @@ dnspython==2.2.1
 flask-mongoengine
 flask-cors
 gunicorn
+timm

@@ -10,7 +10,7 @@ services:
     volumes:
       - ./build/static:/app/static
     environment:
-      MODEL: /app/detector/models/brand.pkl
+      MODEL: /app/detector/models/model.pkl
       COLOR: /app/detector/models/color.pkl
       DB_HOST: mongodb
       DB_PORT: 27017
